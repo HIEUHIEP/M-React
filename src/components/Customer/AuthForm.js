@@ -4,7 +4,7 @@ import URL_API from "../../serve/url";
 import classes from "./AuthForm.module.css";
 import { Button, Spinner } from "react-bootstrap";
 
-const AuthForm = () => { 
+const AuthForm = () => {
   const authCtx = useContext(AuthContext);
 
   const nameCustomerInputRef = useRef();
@@ -38,7 +38,7 @@ const AuthForm = () => {
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Authentication Error!";
+            let errorMessage = "Authentication failed!";
             throw new Error(errorMessage);
           });
         }
@@ -75,7 +75,7 @@ const AuthForm = () => {
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Authentication Error!";
+            let errorMessage = "Authentication failed!";
             throw new Error(errorMessage);
           });
         }

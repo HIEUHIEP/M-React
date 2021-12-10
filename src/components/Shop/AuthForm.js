@@ -41,7 +41,7 @@ const AuthForm = () => {
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Authentication Error!";
+            let errorMessage = "Authentication failed!";
             throw new Error(errorMessage);
           });
         }
@@ -83,7 +83,7 @@ const AuthForm = () => {
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Authentication Error!";
+            let errorMessage = "Authentication failed!";
             throw new Error(errorMessage);
           });
         }
@@ -101,13 +101,13 @@ const AuthForm = () => {
 
   return (
     <section className={classes.auth}>
-      <h1>{isLogin ? "Login" : "Register Account"}</h1>
+      <h1>{isLogin ? "Login" : "Register shop"}</h1>
       <div>
         {isLogin && (
           <form onSubmit={submitToView}>
             <div className={classes.control}>
-              <label htmlFor="shopId" >Your Phone</label>
-              <input type="text" id="shopId" placeholder="Please Input Your Phone Number" required ref={shopIdRef} />
+              <label htmlFor="shopId">Your Phone</label>
+              <input type="text" id="shopId" placeholder="Please Input Your Phone" required ref={shopIdRef} />
             </div>
             <div className={classes.actions}>
               <button>Login</button>
@@ -120,33 +120,15 @@ const AuthForm = () => {
           <form onSubmit={submitHandler}>
             <div className={classes.control}>
               <label htmlFor="nameShop">Shop Name</label>
-              <input
-                type="text"
-                id="nameShop"
-                required
-                ref={nameShopInputRef}
-                placeholder="Please Input Shop Name"
-              />
+              <input type="text"  id="nameShop" required placeholder="Please Input Your Shop Name" ref={nameShopInputRef} />
             </div>
             <div className={classes.control}>
-              <label htmlFor="tel">Phone Number</label>
-              <input
-                type="text"
-                pattern="\d*"
-                id="tel"
-                required
-                ref={phoneNumberInputRef}
-                placeholder="Please Input Your Phone Number"
-              />
+              <label htmlFor="tel">Phone number</label>
+              <input type="text" pattern="\d*" id="tel" required placeholder="Please Input Your Phone Number" ref={phoneNumberInputRef} />
             </div>
             <div className={classes.control}>
               <label htmlFor="img">Image</label>
-              <input
-                type="file"
-                id="img"
-                required
-                ref={imageInputRef}
-              />
+              <input type="file" id="img" required ref={imageInputRef} />
             </div>
             <div className={classes.actions}>
               {!isLoading && <button>Register shop</button>}
@@ -155,12 +137,8 @@ const AuthForm = () => {
           </form>
         )}
       </div>
-      <button
-        type="button"
-        className={classes.toggle}
-        onClick={switchAuthModeHandler}
-      >
-        {isLogin ? "Register new shop" : "Login with existing shop"}
+      <button type="button" className={classes.toggle} onClick={switchAuthModeHandler} >
+        {isLogin ? "Register new shop" : "Login with exist shop"}
       </button>
     </section>
   );

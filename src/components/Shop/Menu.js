@@ -75,7 +75,7 @@ const Menu = (props) => {
           ))}
         </ul>
       )}
-      {props.data.length === 0 && <p>List empty</p>}
+      {props.data.length === 0 && <p>List is empty</p>}
       <div>
         <Modal show={showDelete} onHide={handleCloseDelete}>
           <Modal.Header closeButton>
@@ -83,11 +83,11 @@ const Menu = (props) => {
           </Modal.Header>
           <Modal.Body>Do you want to delete it?</Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={deleteAction}>
-              Yes
-            </Button>
             <Button variant="secondary" onClick={handleCloseDelete}>
               No
+            </Button>
+            <Button variant="primary" onClick={deleteAction}>
+              Yes
             </Button>
           </Modal.Footer>
         </Modal>

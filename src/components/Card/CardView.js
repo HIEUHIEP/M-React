@@ -14,6 +14,7 @@ const CardView = () => {
   const [listItem, setListItem] = useState({});
   const [orderInfo, setListItemInCard] = useState({});
 
+  
   // Call API to get shop infor and list items
   const getShopInfo = (shopId) => {
     const urlAPi = `${URL_API}/api/Shop/${shopId}`;
@@ -40,6 +41,7 @@ const CardView = () => {
         alert(err.message);
       });
   };
+
 
   // Call API to get card info
   const getCardInfo = (isFirst = true) => {
@@ -142,25 +144,17 @@ const CardView = () => {
         {!isBusyShop && !isBusyOrder && (
           <div className={classes.shopView}>
             <Card className={classes.shopInfo}>
-              <Card.Img
-                variant="top"
-                src={`data:image/png;base64, ${shopInfo.image}`}
-              />
+              <Card.Img variant="top" src={`data:image/png;base64, ${shopInfo.image}`} />
               <Card.Body>
                 <p>
-                  <u>Author:</u> VinhNV10
+                  <u>Author:</u> HiepLH1
                 </p>
                 <p>
                   <u>Phone number:</u> {shopInfo.phoneNumber}
                 </p>
                 <p>
-                  <u>Address:</u> FPT-Complex{" "}
-                  <a
-                    target="blank"
-                    href="https://www.google.com/maps/place/FPT+Complex+%C4%90%C3%A0+N%E1%BA%B5ng/@15.978364,108.2620564,523m/data=!3m1!1e3!4m5!3m4!1s0x0:0x51c64b1130497f99!8m2!3d15.9783846!4d108.2620725"
-                  >
-                    Go map
-                  </a>
+                  <u>Address:</u> DaNang-VietNam{" "}
+
                 </p>
               </Card.Body>
             </Card>

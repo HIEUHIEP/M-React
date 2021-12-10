@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import classes from "./ShopViewMenu.module.css";
 import URL_API from "../../serve/url";
 import AuthContext from "../../store/auth-context";
-import { Button, Spinner } from "react-bootstrap";
+import { Button, Card, Spinner } from "react-bootstrap";
 
 import Menu from "./Menu";
 import Orders from "./Orders";
@@ -22,7 +22,8 @@ const ShopViewMenu = (props) => {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    //getShopInfo();
+    getShopInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Call API to get shop infor and list items
@@ -37,7 +38,7 @@ const ShopViewMenu = (props) => {
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Authentication Error!";
+            let errorMessage = "Authentication failed!";
             throw new Error(errorMessage);
           });
         }
@@ -65,7 +66,7 @@ const ShopViewMenu = (props) => {
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Authentication Error!";
+            let errorMessage = "Authentication failed!";
             throw new Error(errorMessage);
           });
         }
@@ -78,6 +79,7 @@ const ShopViewMenu = (props) => {
         alert(err.message);
       });
   };
+
 
   // Call API to add new item
   const addItem = (enteredDataItem) => {
@@ -93,7 +95,7 @@ const ShopViewMenu = (props) => {
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Authentication Error!";
+            let errorMessage = "Authentication failed!";
             throw new Error(errorMessage);
           });
         }
@@ -126,7 +128,7 @@ const ShopViewMenu = (props) => {
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Authentication Error!";
+            let errorMessage = "Authentication failed!";
             throw new Error(errorMessage);
           });
         }
@@ -155,13 +157,76 @@ const ShopViewMenu = (props) => {
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Authentication Error!";
+            let errorMessage = "Authentication failed!";
             throw new Error(errorMessage);
           });
         }
       })
       .then(() => {
         getShopInfo();
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
+  const changeStatus = (value, orderStatus) => {
+    const urlAPi = `${URL_API}/api/Order/status`;
+    fetch(urlAPi, {
+      method: "PUT",
+      body: JSON.stringify({
+        orderId: value.orderId,
+        OrderStatus: orderStatus,
+        customerId: value.customerId,
+        shopId: value.shopId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Authentication failed!";
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then(() => {
+        getOrdersList();
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
+  const cancelOrder = (value) => {
+    const urlAPi = `${URL_API}/api/Order/cancel`;
+    fetch(urlAPi, {
+      method: "PUT",
+      body: JSON.stringify({
+        orderId: value.orderId,
+        customerId: value.customerId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Authentication failed!";
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        alert(data.errorMessage);
+        getOrdersList();
       })
       .catch((err) => {
         alert(err.message);
@@ -193,9 +258,9 @@ const ShopViewMenu = (props) => {
       </h1>
       <div className={classes.wrapBtn}>
         <div>
-          <Button variant="danger" value="0" onClick={copyShopLink}>
-            Copy link shop
-          </Button>{" "}
+          <Button variant="info" value="1" onClick={copyShopLink}>
+            Share link shop
+          </Button>
         </div>
         <Button variant="dark" value="1" onClick={toggleView}>
           View {isViewMenu ? "Orders" : "Menu"}
@@ -203,6 +268,23 @@ const ShopViewMenu = (props) => {
       </div>
       {!isBusy && (
         <div className={classes.shopView}>
+          <Card className={classes.shopInfo}>
+            <Card.Img
+              variant="top"
+              src={`data:image/png;base64, ${shopInfo.image}`}
+            />
+            <Card.Body>
+              <p>
+                <u>Author:</u> HiepLH1
+              </p>
+              <p>
+                <u>Phone number:</u> {shopInfo.phoneNumber}
+              </p>
+              <p>
+                <u>Address:</u> DaNang-VietNam{" "}
+              </p>
+            </Card.Body>
+          </Card>
           <div className={classes.listContent}>
             <div className={classes.listContent__header}>
               <p className={classes.listContent__title}>
@@ -215,16 +297,10 @@ const ShopViewMenu = (props) => {
               )}
             </div>
             {isViewMenu && (
-              <Menu
-                data={listItem}
-                deleteItem={deleteItem}
-                updateItem={updateItem}
-              />
+              <Menu data={listItem} deleteItem={deleteItem} updateItem={updateItem} />
             )}
             {!isViewMenu && (
-              <Orders
-                data={ordersList.orders}
-              />
+              <Orders data={ordersList.orders} changeStatus={changeStatus} cancelOrder={cancelOrder} />
             )}
           </div>
         </div>
@@ -234,13 +310,10 @@ const ShopViewMenu = (props) => {
           <Spinner animation="border" variant="danger" />
         </div>
       )}
-      <AddItemForm
-        handleClose={handleClose}
-        addItem={addItem}
-        show={show}
-      ></AddItemForm>
+      <AddItemForm handleClose={handleClose} addItem={addItem} show={show}></AddItemForm>
     </div>
   );
 };
 
 export default ShopViewMenu;
+

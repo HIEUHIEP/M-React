@@ -126,7 +126,9 @@ const CardList = (props) => {
         }
       })
       .then((data) => {
+
         createOrder();
+        
       })
       .catch((err) => {
         alert(err.message);
@@ -140,39 +142,27 @@ const CardList = (props) => {
         <ul className={classes.listItem}>
           {props.data.itemsInCart.map((item, index) => (
             <li className={classes.itemWrap} key={index} data-id={item.itemId}>
-              <img
-                className="card-img-top"
-                src={`data:image/png;base64, ${item.image}`}
-                alt="item"
-              />
+              <img className="card-img-top" src={`data:image/png;base64, ${item.image}`} alt="item" />
               <div>
                 <p>{item.itemName}</p>
                 <p>${item.price}</p>
                 <p>Total: {item.amount}</p>
                 {!isBusy && (
-                  <RiDeleteBin2Line
-                    className={classes.iconRemove}
-                    onClick={removeItem}
-                  />
+                  <RiDeleteBin2Line className={classes.iconRemove} onClick={removeItem} />
                 )}
                 {isBusy && (
                   <Button variant="primary" disabled>
-                    <Spinner
-                      as="span"
-                      animation="border"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                    <span className="visually-hidden">Loading...</span>
+                    <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                    <span className="visually-hidden">Loading......</span>
                   </Button>
                 )}
               </div>
             </li>
           ))}
+
           <li className={classes.itemWrap} key="total">
             <Button variant="success" onClick={submit}>Submit</Button>
-            <p className={classes.totalPrice}>Total: ${props.data.totalPrice}</p>
+            <p className={classes.totalPrice}>SUM: ${props.data.totalPrice}</p>
           </li>
         </ul>
       )}

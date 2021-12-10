@@ -8,22 +8,21 @@ const MainNavigation = () => {
   const authCtx = useContext(AuthContext);
 
   const isLoggedIn = authCtx.isLoggedIn;
-  const isCustomer =
-    window.location.pathname.indexOf("/shop/") > -1 ||
-    window.location.pathname.indexOf("/card/") > -1;
+  const isCustomer = window.location.pathname.indexOf("/shop/") > -1 || window.location.pathname.indexOf("/card/") > -1;
 
   const logoutHandler = () => {
+
     authCtx.logout();
+
     // optional: redirect the user
     window.location.href = window.location.origin;
   };
-
   const viewShopPath = `/admin/${authCtx.token}`;
 
   return (
     <header className={classes.header}>
       <Link to="/">
-        <div className={classes.logo}>Home Page</div>
+        <div className={classes.logo}>Home Screen</div>
       </Link>
       <nav>
         {!isCustomer && (

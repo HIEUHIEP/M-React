@@ -42,6 +42,7 @@ const AddItemForm = (props) => {
                 type="text"
                 id="name"
                 required
+                placeholder="Please Input Name Item"
                 ref={nameInputRef}
               />
             </div>
@@ -51,6 +52,7 @@ const AddItemForm = (props) => {
                 type="number"
                 id="price"
                 required
+                placeholder="Please Input Price"
                 ref={priceInputRef}
               />
             </div>
@@ -64,7 +66,7 @@ const AddItemForm = (props) => {
               Close
             </Button>
             <Button variant="primary" type="submit">
-              Save Changes
+              Save
             </Button>
           </Modal.Footer>
         </form>
