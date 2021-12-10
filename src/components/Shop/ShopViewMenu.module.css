@@ -1,0 +1,53 @@
+.wrap {
+  margin: 20px auto;
+  width: 1400px;
+}
+
+.wrapBtn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.shopName {
+  font-size: 50px;
+  text-decoration: underline;
+  color: #ed143d;
+}
+
+.shopView {
+  display: flex;
+  margin-top: 20px;
+}
+
+.shopInfo {
+  font-size: 20px;
+  width: 300px;
+  background: rgb(0,0,0);
+  background: linear-gradient(343deg, rgba(0,0,0,1) 0%, rgba(26,9,121,1) 18%, rgba(255,255,255,1) 100%);
+}
+
+.listContent {
+  width: 1090px;
+  margin-left: 10px;
+  padding: 10px;
+  border: solid 1px #00000020;
+}
+
+.listContent__header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 20px;
+}
+
+.listContent__title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.spiner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
